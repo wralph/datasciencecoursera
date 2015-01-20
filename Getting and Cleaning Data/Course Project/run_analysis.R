@@ -22,12 +22,13 @@ unzip(zippedDataset, files = NULL, list = FALSE, overwrite = TRUE,
 
 # read data from zipfile
 print("reading data")
+# use unz again
 data.test <- data.table(read.table(paste(dataDirectory, "/X_test.txt", sep="")))
 data.train <- data.table(read.table(paste(dataDirectory, "/X_train.txt", sep="")))
 
 # TODO: get the Y_test.txt and Y_train.txt for the activities
 
-# TODO: use cbind to bind the columns together
+# TODO: use use merge to merge the data together
 
 
 
@@ -51,3 +52,7 @@ setnames(data.merged, as.character(features$feature))
 
 ## Extracts only the measurements on the mean and standard deviation for each measurement. 
 data.selected <- data.merged[,grepl("std|mean", colnames(data.merged))]
+
+
+## finallywrite a csv file
+write.csv(DT_HAR_tidy, FILE_output, row.names = FALSE)
