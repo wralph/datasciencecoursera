@@ -1,1 +1,4 @@
+*.csv
+*.Rhistory
+*.RData
 Getting and Cleaning Data/Course Project/dataset.zip
