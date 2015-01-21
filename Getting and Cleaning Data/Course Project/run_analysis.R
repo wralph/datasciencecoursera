@@ -26,9 +26,19 @@
 ## From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 ##
 
-library(dplyr)
-library(data.table)
-library(reshape2)
+#library(dplyr)
+#library(data.table)
+#library(reshape2)
+if (!require("data.table")) {
+  install.packages("data.table")
+}
+
+if (!require("reshape2")) {
+  install.packages("reshape2")
+}
+
+require("data.table")
+require("reshape2")
 
 #global variables
 zippedDataset <- "dataset.zip"
@@ -54,25 +64,16 @@ print("reading data")
 ## test data
 # reading measurements
 data.test.x <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/test/X_test.txt")))
-#data.test.x[, id:=1:nrow(data.test.x)] # adding a id to the dataset -> use a function for that operation
-#setkey(data.test.x, id) # define a key
 
 ## specifying column names
-#setnames(data.test.x, c("id", as.character(features$feature)))
 setnames(data.test.x, as.character(features$feature))
 
 # reading activities
 data.test.y <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/test/y_test.txt")))
-#data.test.y[, id:=1:nrow(data.test.y)] # adding a id to the dataset -> use a function for that operation
-#setkey(data.test.y, id) # define a key
-#setnames(data.test.y, c("activity", "id"))
 setnames(data.test.y, "activity_id")
 
 #reading subjects
 data.test.subject <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/test/subject_test.txt")))
-#data.test.subject[, id:=1:nrow(data.test.subject)]
-#setkey(data.test.subject, id)
-#setnames(data.test.subject, c("subject", "id"))
 setnames(data.test.subject,"subject")
 
 # bind columns
@@ -88,25 +89,16 @@ rm(data.test.subject)
 
 # reading measurements
 data.train.x <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/train/X_train.txt")))
-#data.test.x[, id:=1:nrow(data.test.x)] # adding a id to the dataset -> use a function for that operation
-#setkey(data.test.x, id) # define a key
 
 ## specifying column names
-#setnames(data.test.x, c("id", as.character(features$feature)))
 setnames(data.train.x, as.character(features$feature))
 
 # reading activities
 data.train.y <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/train/y_train.txt")))
-#data.test.y[, id:=1:nrow(data.test.y)] # adding a id to the dataset -> use a function for that operation
-#setkey(data.test.y, id) # define a key
-#setnames(data.test.y, c("activity", "id"))
 setnames(data.train.y, "activity_id")
 
 #reading subjects
 data.train.subject <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/train/subject_train.txt")))
-#data.test.subject[, id:=1:nrow(data.test.subject)]
-#setkey(data.test.subject, id)
-#setnames(data.test.subject, c("subject", "id"))
 setnames(data.train.subject,"subject")
 
 # bind columns
@@ -147,8 +139,7 @@ activities <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/activity
                                   col.names=c("activity_id", "activity"), 
                                   stringsAsFactors=FALSE))
 
-# factorize the activity column in the data set
-#data.labelled <- merge(data, activities, by.x="activity", by.y="id", all=TRUE)
+# label avtivities by merging
 data <- merge(data, activities, by="activity_id", all=TRUE)
 data[, activity_id := NULL]
 
@@ -170,9 +161,6 @@ names(data)<-gsub("BodyBody", "Body", names(data))
 # 5. From the data set in step 4, creates a second, independent tidy data set with the 
 #     average of each variable for each activity and each subject.
 
-##data2 <- aggregate(. ~subject + activity, data, mean)
-##data2 <- data2[order(data2$subject,data2$activity),]
-
 print("generating a second set for writing")
 data.melt <- melt(data, id=c("activity", "subject"))
 data.tidy <- dcast(data.melt, activity + subject ~ variable, mean)
@@ -181,7 +169,7 @@ rm(data)
 rm(data.melt)
 
 print("writing to output")
-## finallywrite a csv file
+## finally write a txt file
 write.table(data.tidy, "tidyData.txt", row.name = FALSE)
 
 rm(data.tidy)
