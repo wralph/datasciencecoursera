@@ -86,7 +86,6 @@ str(features)
 Classes ‘data.table’ and 'data.frame':	561 obs. of  2 variables:
  $ id     : int  1 2 3 4 5 6 7 8 9 10 ...
  $ feature: chr  "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" ...
- - attr(*, ".internal.selfref")=<externalptr> 
 ```
                                   
 								  
@@ -208,7 +207,6 @@ Classes ‘data.table’ and 'data.frame':	2947 obs. of  561 variables:
  $ V98 : num  -0.997 -0.999 -0.999 -0.999 -1 ...
  $ V99 : num  -0.997 -0.999 -0.999 -0.999 -1 ...
   [list output truncated]
- - attr(*, ".internal.selfref")=<externalptr> 
 ```
 
 #### Specifying column names
@@ -323,7 +321,6 @@ Classes ‘data.table’ and 'data.frame':	2947 obs. of  561 variables:
  $ tBodyAccJerk-energy()-Y             : num  -0.997 -0.999 -0.999 -0.999 -1 ...
  $ tBodyAccJerk-energy()-Z             : num  -0.997 -0.999 -0.999 -0.999 -1 ...
   [list output truncated]
- - attr(*, ".internal.selfref")=<externalptr> 
 ```
 
 
@@ -341,7 +338,6 @@ The raw structure is shown below.
 str(data.test.y)
 Classes ‘data.table’ and 'data.frame':	2947 obs. of  1 variable:
  $ V1: int  5 5 5 5 5 5 5 5 5 5 ...
- - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 To make it more readable, lets provide a readable name.
@@ -371,7 +367,6 @@ The resulting shape is the following.
 str(data.test.subject)
 Classes ‘data.table’ and 'data.frame':	2947 obs. of  1 variable:
  $ subject: int  2 2 2 2 2 2 2 2 2 2 ...
- - attr(*, ".internal.selfref")=<externalptr> 
 ```
 
 #### Binding columns for the test dataset
@@ -489,7 +484,6 @@ Classes ‘data.table’ and 'data.frame':	2947 obs. of  563 variables:
  $ tBodyAccJerk-energy()-Y             : num  -0.997 -0.999 -0.999 -0.999 -1 ...
  $ tBodyAccJerk-energy()-Z             : num  -0.997 -0.999 -0.999 -0.999 -1 ...
   [list output truncated]
- - attr(*, ".internal.selfref")=<externalptr> 
  
  
  tail(names(date.test))
@@ -673,7 +667,6 @@ Classes ‘data.table’ and 'data.frame':	10299 obs. of  81 variables:
  $ fBodyBodyGyroJerkMag-meanFreq(): num  0.0716 -0.4012 0.0629 0.1167 -0.1217 ...
  $ activity_id                    : int  5 5 5 5 5 5 5 5 5 5 ...
  $ subject                        : int  2 2 2 2 2 2 2 2 2 2 ...
- - attr(*, ".internal.selfref")=<externalptr> 
 ```
 
 Lets free some memory again.
@@ -702,7 +695,6 @@ str(activities)
 Classes ‘data.table’ and 'data.frame':	6 obs. of  2 variables:
  $ activity_id: int  1 2 3 4 5 6
  $ activity   : chr  "WALKING" "WALKING_UPSTAIRS" "WALKING_DOWNSTAIRS" "SITTING" ...
- - attr(*, ".internal.selfref")=<externalptr> 
 ```						  
 
 ### Labelling activities by merging the datasets
@@ -803,7 +795,6 @@ Classes ‘data.table’ and 'data.frame':	10299 obs. of  81 variables:
  $ fBodyBodyGyroJerkMag-meanFreq(): num  0.109 0.267 0.372 0.26 0.324 ...
  $ subject                        : int  2 2 2 2 2 2 2 2 2 2 ...
  $ activity                       : chr  "WALKING" "WALKING" "WALKING" "WALKING" ...
- - attr(*, ".internal.selfref")=<externalptr>
 ```
 
 Freeing some memory again.
