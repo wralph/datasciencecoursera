@@ -25,3 +25,6 @@ The executed steps are the following.
 4. Appropriately labels the data set with descriptive variable names. 
 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+
+
+The prepared data is dumped to a file called "tidyData.txt".
