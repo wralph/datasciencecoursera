@@ -44,9 +44,14 @@ require("data.table")
 require("reshape2")
 ```
 
-#### global variables
+### Define the name of the zipped dataset
+```r
 zippedDataset <- "dataset.zip"
+```
 
+Now in case the zipped dataset is not existing, it needs to be downloaded to be used later on.
+
+```r
 if(!file.exists(zippedDataset))
 {
   #### download dataset
@@ -54,15 +59,38 @@ if(!file.exists(zippedDataset))
   download.file(zip, zippedDataset)
   rm(zip)  
 }
+```
 
-### 1. Merges the training and the test sets to create one data set.
+## 1. Merges the training and the test sets to create one data set.
 
-#### obtaining feature information
+The first operations are performed on the previously downloaded dataset. In this step, we want to read the required
+data and merge them together.
+
+
+### Obtaining feature information
+
+The description of the features is loaded to be used for a later labelling.
+
+```r
 features <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/features.txt"), 
                                   col.names=c("id", "feature"), 
                                   stringsAsFactors=FALSE))
+
+```
+
+The structure is as following.
+```r
+str(features)
+Classes ‘data.table’ and 'data.frame':	561 obs. of  2 variables:
+ $ id     : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ feature: chr  "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" ...
+ - attr(*, ".internal.selfref")=<externalptr> 
+```
                                   
-#### read data from zipfile
+								  
+### Reading test data
+
+First the test data will be obtained and prepared for merge
 print("reading data")
 
 #### test data
