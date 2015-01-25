@@ -98,13 +98,8 @@ First the test data will be obtained and prepared for merge
 ```r
 data.test.x <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/test/X_test.txt")))
 ```
+
 ```r
-str(data.test.x)
-Classes ‘data.table’ and 'data.frame':	561 obs. of  2 variables:
- $ id     : int  1 2 3 4 5 6 7 8 9 10 ...
- $ feature: chr  "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" ...
- - attr(*, ".internal.selfref")=<externalptr> 
-> data.test.x <- data.table(read.table(unz(zippedDataset, "UCI HAR Dataset/test/X_test.txt")))
 > str(data.test.x)
 Classes ‘data.table’ and 'data.frame':	2947 obs. of  561 variables:
  $ V1  : num  0.257 0.286 0.275 0.27 0.275 ...
