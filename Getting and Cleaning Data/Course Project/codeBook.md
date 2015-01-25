@@ -479,8 +479,9 @@ Classes ‘data.table’ and 'data.frame':	2947 obs. of  563 variables:
  $ tBodyAccJerk-energy()-Y             : num  -0.997 -0.999 -0.999 -0.999 -1 ...
  $ tBodyAccJerk-energy()-Z             : num  -0.997 -0.999 -0.999 -0.999 -1 ...
   [list output truncated]
+``` 
  
- 
+```r 
  tail(names(date.test))
  [1] "angle(tBodyGyroJerkMean,gravityMean)" "angle(X,gravityMean)"                
 [3] "angle(Y,gravityMean)"                 "angle(Z,gravityMean)"                
