@@ -35,7 +35,8 @@ g <- ggplot(data, aes(year, sm, color=factor(type))) +
 	facet_wrap(~type, ncol=1) +	
 	labs(title = "Summarized emissions by year for 'Baltimore City' per type") +
 	labs(x = "Year", y = "PM2.5 (tons)") +
-	labs(colour = "Types")
+	theme(legend.title=element_blank())
+	#labs(colour = "Types")
 
 
 # one chart with different lines inside	
