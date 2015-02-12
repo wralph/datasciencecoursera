@@ -23,22 +23,21 @@ require("scales")
 
 mobileSector <- filter(SCC, grepl("Mobile", EI.Sector)) %>% select( SCC, EI.Sector)
 
-data.tmp <-filter(NEI, fips=="24510") %>% 
-		mutate(SCC=factor(SCC)) %>% 
+data.tmp <- filter(NEI, fips=="24510" | fips == "06037") %>% 
+		mutate(SCC=factor(SCC), city=ifelse(fips=="24510", "Baltimore City", "Los Angeles County")) %>% 
 		filter(SCC %in% mobileSector$SCC)
 		
-data.merged <- merge(data.tmp, mobileSector, by.x="SCC", by.y="SCC", all=TRUE)
-data <- filter(data.merged, !is.na(Emissions)) %>% 
-		group_by(EI.Sector, year) %>% 
+data <- filter(data.tmp, !is.na(Emissions)) %>% 
+		group_by(city, year) %>% 
 		summarise(sm=sum(Emissions)) 
 	
-png(file ="plot5.png", bg="white", width=480, height=480)
+png(file ="plot6.png", bg="white", width=480, height=480)
 
-g <- ggplot(data, aes(year, sm, color=factor(EI.Sector))) +
+g <- ggplot(data, aes(year, sm, color=factor(city))) +
 	geom_line(size=2, alpha=1/4) +
 	geom_point(size = 4, alpha = 1/2)  +			
-	facet_wrap(~EI.Sector, ncol=2) +	
-	labs(title = "Summarized mobile emissions by year and sector (Baltimore City)") +
+	facet_wrap(~city, ncol=1) +	
+	labs(title = "Summarized mobile emissions\nby year and sector\n(Baltimore City vs. Los Angeles County)") +
 	labs(x = "Year", y = "PM2.5 (tons)") +	
 	scale_y_continuous(labels = comma) +
 	theme(legend.position="none") 
@@ -48,5 +47,4 @@ dev.off()
 
 rm(mobileSector)
 rm(data.tmp)
-rm(data.merged)
 rm(data)
