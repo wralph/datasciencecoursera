@@ -26,3 +26,5 @@ title(main = "Summarized emissions by year for Baltimore City")
 par(op)
 
 dev.off()
+
+rm(data)

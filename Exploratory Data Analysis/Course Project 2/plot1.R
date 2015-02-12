@@ -24,3 +24,5 @@ title(main = "Summarized emissions by year")
 par(op)
 
 dev.off()
+
+rm(data)

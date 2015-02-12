@@ -35,7 +35,8 @@ g <- ggplot(data, aes(year, sm, color=factor(type))) +
 	facet_wrap(~type, ncol=1) +	
 	labs(title = "Summarized emissions by year for 'Baltimore City' per type") +
 	labs(x = "Year", y = "PM2.5 (tons)") +
-	theme(legend.title=element_blank())
+	theme(legend.title=element_blank()) +
+	scale_y_continuous(labels = comma)
 	#labs(colour = "Types")
 
 
@@ -48,3 +49,5 @@ g <- ggplot(data, aes(year, sm, color=factor(type))) +
 
 print(g)	
 dev.off()
+
+rm(data)
