@@ -34,7 +34,9 @@ data <- filter(data.merged, !is.na(Emissions)) %>%
 	
 png(file ="plot5.png", bg="white", width=480, height=480)
 
+# log or not log
 g <- ggplot(data, aes(year, sm, color=factor(EI.Sector))) +
+#g <- ggplot(data, aes(year, log(sm), color=factor(EI.Sector))) +
 	geom_line(size=2, alpha=1/4) +
 	geom_point(size = 4, alpha = 1/2)  +			
 	facet_wrap(~EI.Sector, ncol=2) +	
