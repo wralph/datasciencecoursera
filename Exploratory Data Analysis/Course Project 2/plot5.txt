@@ -2,7 +2,7 @@ if(!exists("NEI")){
 	NEI <- readRDS("summarySCC_PM25.rds")
 }
 if(!exists("SCC")){
-SCC <- readRDS("Source_Classification_Code.rds")
+	SCC <- readRDS("Source_Classification_Code.rds")
 }
 
 if (!require("dplyr")) {
@@ -24,27 +24,30 @@ require("scales")
 vehicles <- filter(SCC, grepl("[Vv]ehicle", SCC.Level.Two) | grepl("[Vv]ehicle", EI.Sector)) %>% 
 				select(SCC)
 
-data.tmp <- filter(NEI, fips=="24510" | fips == "06037") %>% 
-		mutate(SCC=factor(SCC), city=ifelse(fips=="24510", "Baltimore City", "Los Angeles County")) %>% 
+data.tmp <-filter(NEI, fips=="24510") %>% 
+		mutate(SCC=factor(SCC)) %>% 
 		filter(SCC %in% vehicles$SCC)
 		
-data <- filter(data.tmp, !is.na(Emissions)) %>% 
-		group_by(city, year) %>% 
+data.merged <- merge(data.tmp, vehicles, by.x="SCC", by.y="SCC", all=TRUE)
+data <- filter(data.merged, !is.na(Emissions)) %>% 
+		group_by(year) %>% 
 		summarise(sm=sum(Emissions)) 
 	
-png(file ="plot6.png", bg="white", width=480, height=480)
+png(file ="plot5.png", bg="white", width=480, height=480)
 
-g <- ggplot(data, aes(year, sm, color=factor(city))) +
+g <- ggplot(data, aes(year, sm)) +
 	geom_line(size=2, alpha=1/4) +
 	geom_point(size = 4, alpha = 1/2)  +			
-	labs(title = "Summarized vehicle emissions\nby year and sector\n(Baltimore City vs. Los Angeles County)") +
+	labs(title = "Summarized vehicle emissions by year\n(Baltimore City)") +
 	labs(x = "Year", y = "PM2.5 (tons)") +	
-	theme(legend.title=element_blank()) +
-	scale_y_continuous(labels = comma) 
+	scale_y_continuous(labels = comma) +
+	theme(legend.position="none") 
+
 	
 print(g)	
 dev.off()
 
 rm(vehicles)
 rm(data.tmp)
+rm(data.merged)
 rm(data)
